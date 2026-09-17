@@ -1,1 +1,68 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Petite Exploratrice</title></head><body><p>Chargement… Ouvre le fichier complet.</p><script>location.replace('./app.html')</script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#6C5CE7" />
+  <title>Petite Exploratrice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="brand"><span class="mascot">🌟</span> Petite Exploratrice</div>
+      <div class="stars">⭐ <span id="starCount">0</span></div>
+    </header>
+    <main>
+      <section id="home" class="screen on">
+        <div class="hero">
+          <h1>On part à l’aventure ?</h1>
+          <p>Tape un monde. J’écoute et j’apprends !</p>
+        </div>
+        <div class="worlds">
+          <button class="world w1" onclick="openWorld('espace')"><span>🚀</span>Espace</button>
+          <button class="world w2" onclick="openWorld('science')"><span>🔬</span>Sciences</button>
+          <button class="world w3" onclick="openWorld('metiers')"><span>👩‍🚒</span>Métiers</button>
+          <button class="world w4" onclick="openWorld('histoire')"><span>🏰</span>Histoire</button>
+          <button class="world w5" onclick="openWorld('geo')"><span>🌍</span>Géographie</button>
+        </div>
+        <p class="parent-note">Pour les 4 ans • voix française • sans pub • tablette ou téléphone</p>
+      </section>
+      <section id="world" class="screen">
+        <div class="backrow">
+          <button class="icon-btn" onclick="goHome()">🏠</button>
+          <button class="chip" id="modeExplore" onclick="setMode('explore')">👀 Découvrir</button>
+          <button class="chip" id="modeSolar" onclick="setMode('solar')">🪐 Système solaire</button>
+          <button class="chip" id="modeMap" onclick="setMode('map')">🗺️ Carte du monde</button>
+          <button class="chip" id="modeQuiz" onclick="setMode('quiz')">🎯 Quiz</button>
+          <button class="speak-btn" onclick="speakWelcome()">🔊 Écoute</button>
+        </div>
+        <div class="card" id="worldCard">
+          <div class="bar">
+            <strong id="worldTitle">Monde</strong>
+            <div class="progress"><i id="prog"></i></div>
+            <span id="qnum"></span>
+          </div>
+          <div id="content"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="overlay" id="win">
+    <div class="modal">
+      <div class="big">🎉</div>
+      <h2>Bravo, exploratrice !</h2>
+      <p id="winText">Tu as gagné des étoiles.</p>
+      <button class="cta" onclick="closeWin()">Encore une aventure</button>
+    </div>
+  </div>
+  <canvas id="confetti"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
