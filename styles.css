@@ -47,6 +47,7 @@
     .w3 { background: linear-gradient(160deg, #fdcb6e, #e17055); }
     .w4 { background: linear-gradient(160deg, #e17055, #d63031); }
     .w5 { background: linear-gradient(160deg, #00cec9, #0984e3); }
+    .w6 { background: linear-gradient(160deg, #a29bfe, #6c5ce7); }
     .screen { display: none; }
     .screen.on { display: block; animation: pop .28s ease; }
     @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.98); } }
@@ -81,6 +82,35 @@
     .tile-img { width: 100%; height: 86px; object-fit: cover; display: block; background: #e8eef8; }
     .scene-photo { height: min(42vh, 320px); padding: 0; }
     .scene-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .memo-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    }
+    @media (max-width: 520px) { .memo-grid { grid-template-columns: repeat(3, 1fr); } }
+    .mcard {
+      aspect-ratio: 3/4; perspective: 600px; background: transparent;
+      padding: 0; box-shadow: none; border-radius: 14px;
+    }
+    .mcard .face {
+      width: 100%; height: 100%; border-radius: 14px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      backface-visibility: hidden; position: absolute; inset: 0;
+      transition: transform .35s ease;
+    }
+    .mcard { position: relative; }
+    .mcard .back {
+      background: linear-gradient(160deg,#6c5ce7,#a29bfe); color: #fff; font-size: 2rem;
+      transform: rotateY(0);
+    }
+    .mcard .front {
+      background: #fff; transform: rotateY(180deg); font-size: .78rem; padding: 4px;
+      box-shadow: 0 5px 0 #dfe6e9;
+    }
+    .mcard .front img { width: 100%; height: 62%; object-fit: cover; border-radius: 10px 10px 0 0; }
+    .mcard .front .e { font-size: 1.8rem; }
+    .mcard.on .back { transform: rotateY(180deg); }
+    .mcard.on .front { transform: rotateY(0); }
+    .mcard.ok { pointer-events: none; }
+    .mcard.ok .front { background: #55efc4; box-shadow: 0 5px 0 #00b894; }
     .fact {
       margin-top: 14px; background: #fff7d6; border-radius: 18px; padding: 14px;
       font-size: 1.15rem; min-height: 72px;

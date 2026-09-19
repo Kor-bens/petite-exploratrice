@@ -103,6 +103,12 @@ const DATA = {
       { q:"L’eau salée, c’est…", e:"🌊", ok:"La mer", opts:["La mer","Le lait","Le jus"], oe:["🌊","🥛","🧃"] },
       { q:"Où y a-t-il beaucoup d’arbres ?", e:"🌲", ok:"Dans la forêt", opts:["Dans la forêt","Dans le four","Dans la chaussure"], oe:["🌲","🍞","👟"] }
     ]
+  },
+  memo: {
+    title: "Le mémo",
+    welcome: "Retourne deux cartes. Trouve les deux images pareilles.",
+    items: [],
+    quiz: []
   }
 };
 

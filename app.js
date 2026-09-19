@@ -36,11 +36,13 @@ function openWorld(key) {
   document.getElementById("world").classList.toggle("space-on", key === "espace");
   document.getElementById("world").classList.toggle("geo-on", key === "geo");
   document.getElementById("worldTitle").textContent = DATA[key].title;
-  setMode(key === "espace" ? "solar" : key === "geo" ? "map" : "explore");
+  setMode(key === "espace" ? "solar" : key === "geo" ? "map" : key === "memo" ? "memo" : "explore");
   speak(key === "espace"
     ? "Voici le système solaire en trois D. Glisse pour tourner. Pince pour zoomer. Tape une planète."
     : key === "geo"
     ? "Voici la carte du monde. Tape un continent ou un pays."
+    : key === "memo"
+    ? "Retourne deux cartes. Trouve les deux images pareilles."
     : DATA[key].welcome);
 }
 function speakWelcome() {
@@ -48,6 +50,8 @@ function speakWelcome() {
     ? "Glisse avec un doigt pour tourner. Deux doigts pour zoomer ou te déplacer. Tape une planète pour l’écouter."
     : mode === "map"
     ? "Tape un continent coloré ou un petit drapeau pour entendre le nom du pays."
+    : mode === "memo"
+    ? "Retourne deux cartes. Trouve les paires."
     : DATA[worldKey].welcome);
 }
 function setMode(m) {
@@ -58,6 +62,8 @@ function setMode(m) {
   document.getElementById("modeQuiz").classList.toggle("active", m === "quiz");
   document.getElementById("modeSolar").classList.toggle("active", m === "solar");
   document.getElementById("modeMap").classList.toggle("active", m === "map");
+  const mm = document.getElementById("modeMemo");
+  if (mm) mm.classList.toggle("active", m === "memo");
   document.getElementById("worldCard").classList.toggle("solar-card", m === "solar");
   render();
 }
@@ -107,6 +113,12 @@ function render() {
     box.innerHTML = worldMapHTML();
     return;
   }
+  if (mode === "memo") {
+    prog.style.width = "100%";
+    qnum.textContent = "";
+    startMemo();
+    return;
+  }
   if (mode === "explore") {
     prog.style.width = "100%";
     qnum.textContent = "";
@@ -116,8 +128,10 @@ function render() {
         ${w.items.map((it,i)=>`<button class="tile" onclick="showFact(${i})">${it.img?`<img class="tile-img" src="${it.img}" alt="${it.n}" loading="lazy">`:""}<span class="e">${it.e}</span>${it.n}</button>`).join("")}
       </div>
       <div class="fact" id="fact">Choisis une image 👆</div>`;
-  } else {
+  } else if (w.quiz && w.quiz.length) {
     showQuiz();
+  } else {
+    startMemo();
   }
 }
 function worldMapHTML() {
@@ -225,6 +239,84 @@ function tapGeo(key){
   if(el) el.innerHTML = `<strong>${g.n}</strong><br>${g.t}`;
   speak(`${g.n}. ${g.t}`);
   addStar(1);
+}
+
+let memoCards = [];
+let memoOpen = [];
+let memoLock = false;
+let memoFound = 0;
+
+function memoPool() {
+  if (worldKey !== "memo" && DATA[worldKey] && DATA[worldKey].items.length) {
+    return DATA[worldKey].items.slice(0, 6);
+  }
+  const mix = [];
+  ["espace","science","metiers","histoire","geo"].forEach(k => {
+    if (DATA[k] && DATA[k].items[0]) mix.push(DATA[k].items[0]);
+    if (DATA[k] && DATA[k].items[1]) mix.push(DATA[k].items[1]);
+  });
+  return mix.slice(0, 6);
+}
+function startMemo() {
+  memoLock = false;
+  memoOpen = [];
+  memoFound = 0;
+  const pairs = memoPool();
+  memoCards = [];
+  pairs.forEach((it, i) => {
+    memoCards.push({ id: i, ...it });
+    memoCards.push({ id: i, ...it });
+  });
+  memoCards.sort(() => Math.random() - 0.5);
+  const box = document.getElementById("content");
+  box.innerHTML = `
+    <p class="say">Retourne 2 cartes. Trouve les paires !</p>
+    <div class="memo-grid" id="memoGrid">
+      ${memoCards.map((c,i)=>`
+        <button type="button" class="mcard" data-i="${i}" onclick="flipMemo(${i})">
+          <span class="face back">⭐</span>
+          <span class="face front">${c.img?`<img src="${c.img}" alt="${c.n}">`:""}<span class="e">${c.e}</span>${c.n}</span>
+        </button>`).join("")}
+    </div>
+    <div class="fact" id="fact">0 / ${pairs.length} paires</div>`;
+}
+function flipMemo(i) {
+  if (memoLock) return;
+  const el = document.querySelector(`.mcard[data-i="${i}"]`);
+  if (!el || el.classList.contains("on") || el.classList.contains("ok")) return;
+  el.classList.add("on");
+  memoOpen.push(i);
+  const card = memoCards[i];
+  speak(card.n);
+  if (memoOpen.length < 2) return;
+  memoLock = true;
+  const [a, b] = memoOpen;
+  const same = memoCards[a].id === memoCards[b].id;
+  setTimeout(() => {
+    const ea = document.querySelector(`.mcard[data-i="${a}"]`);
+    const eb = document.querySelector(`.mcard[data-i="${b}"]`);
+    if (same) {
+      ea.classList.add("ok");
+      eb.classList.add("ok");
+      memoFound++;
+      addStar(2);
+      speak("Bravo ! " + memoCards[a].n);
+      const fact = document.getElementById("fact");
+      const total = memoCards.length / 2;
+      if (fact) fact.textContent = memoFound + " / " + total + " paires";
+      if (memoFound >= total) {
+        document.getElementById("winText").textContent = "Tu as trouvé toutes les paires !";
+        document.getElementById("win").classList.add("on");
+        speak("Bravo exploratrice ! Toutes les paires sont trouvées.");
+        burst();
+      }
+    } else {
+      ea.classList.remove("on");
+      eb.classList.remove("on");
+    }
+    memoOpen = [];
+    memoLock = false;
+  }, same ? 500 : 900);
 }
 
 function historyScene(name) {
@@ -711,7 +803,8 @@ function addStar(n) {
 }
 function closeWin() {
   document.getElementById("win").classList.remove("on");
-  setMode("explore");
+  if (mode === "memo" || worldKey === "memo") setMode("memo");
+  else setMode("explore");
 }
 
 /* confetti */
