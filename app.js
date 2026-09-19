@@ -113,7 +113,7 @@ function render() {
     box.innerHTML = `
       <p class="say">Tape une image. J’écoute l’histoire.</p>
       <div class="explore-grid">
-        ${w.items.map((it,i)=>`<button class="tile" onclick="showFact(${i})"><span class="e">${it.e}</span>${it.n}</button>`).join("")}
+        ${w.items.map((it,i)=>`<button class="tile" onclick="showFact(${i})">${it.img?`<img class="tile-img" src="${it.img}" alt="${it.n}" loading="lazy">`:""}<span class="e">${it.e}</span>${it.n}</button>`).join("")}
       </div>
       <div class="fact" id="fact">Choisis une image 👆</div>`;
   } else {
@@ -274,8 +274,10 @@ function historyScene(name) {
 }
 function showFact(i) {
   const it = DATA[worldKey].items[i];
-  const extra = worldKey === "histoire" ? historyScene(it.n) : "";
-  document.getElementById("fact").innerHTML = `${extra}<strong>${it.e} ${it.n}</strong><br>${it.t}`;
+  const photo = it.img
+    ? `<div class="scene scene-photo"><img src="${it.img}" alt="${it.n}"></div>`
+    : (worldKey === "histoire" ? historyScene(it.n) : "");
+  document.getElementById("fact").innerHTML = `${photo}<strong>${it.n}</strong><br>${it.t}`;
   speak(`${it.n}. ${it.t}`);
   addStar(1);
 }

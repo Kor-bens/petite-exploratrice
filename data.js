@@ -3,14 +3,14 @@ const DATA = {
     title: "L’espace",
     welcome: "Bienvenue dans l’espace ! On va voir le Soleil, la Lune et les planètes.",
     items: [
-      { e:"☀️", n:"Soleil", t:"Le Soleil est une grande étoile. Il nous donne de la lumière et de la chaleur." },
-      { e:"🌙", n:"Lune", t:"La Lune tourne autour de la Terre. La nuit, elle brille dans le ciel." },
-      { e:"🌍", n:"Terre", t:"La Terre est notre planète. C’est là que nous habitons." },
-      { e:"🔴", n:"Mars", t:"Mars est une planète rouge. On l’appelle la planète rouge." },
-      { e:"🪐", n:"Saturne", t:"Saturne a de beaux anneaux autour d’elle." },
-      { e:"🚀", n:"Fusée", t:"Une fusée s’envole très haut pour aller dans l’espace." },
-      { e:"👨‍🚀", n:"Astronaute", t:"Un astronaute voyage dans l’espace avec une combinaison spéciale." },
-      { e:"⭐", n:"Étoile", t:"Les étoiles sont des soleils très, très loin. Elles scintillent." }
+      { e:"☀️", n:"Soleil", t:"Le Soleil est une grande étoile. Il nous donne de la lumière et de la chaleur.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/640px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg" },
+      { e:"🌙", n:"Lune", t:"La Lune tourne autour de la Terre. La nuit, elle brille dans le ciel.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/640px-FullMoon2010.jpg" },
+      { e:"🌍", n:"Terre", t:"La Terre est notre planète. C’est là que nous habitons.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/640px-The_Earth_seen_from_Apollo_17.jpg" },
+      { e:"🔴", n:"Mars", t:"Mars est une planète rouge. On l’appelle la planète rouge.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/640px-OSIRIS_Mars_true_color.jpg" },
+      { e:"🪐", n:"Saturne", t:"Saturne a de beaux anneaux autour d’elle.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/640px-Saturn_during_Equinox.jpg" },
+      { e:"🚀", n:"Fusée", t:"Une fusée s’envole très haut pour aller dans l’espace.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Apollo_11_Launch_-_GPN-2000-000630.jpg/480px-Apollo_11_Launch_-_GPN-2000-000630.jpg" },
+      { e:"👨‍🚀", n:"Astronaute", t:"Un astronaute voyage dans l’espace avec une combinaison spéciale.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Aldrin_Apollo_11_original.jpg/480px-Aldrin_Apollo_11_original.jpg" },
+      { e:"⭐", n:"Étoile", t:"Les étoiles sont des soleils très, très loin. Elles scintillent.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Night_sky_over_the_Atacama_Desert.jpg/640px-Night_sky_over_the_Atacama_Desert.jpg" }
     ],
     quiz: [
       { q:"Qu’est-ce qui nous donne de la lumière le jour ?", e:"☀️", ok:"Le Soleil", opts:["Le Soleil","Un frigo","Un bateau"], oe:["☀️","🧊","⛵"] },
@@ -24,14 +24,14 @@ const DATA = {
     title: "Les sciences",
     welcome: "On découvre les animaux, les plantes, l’eau et le temps qu’il fait.",
     items: [
-      { e:"🌧️", n:"Pluie", t:"La pluie, c’est de l’eau qui tombe des nuages." },
-      { e:"🌈", n:"Arc-en-ciel", t:"L’arc-en-ciel apparaît quand le soleil brille pendant la pluie." },
-      { e:"🌱", n:"Plante", t:"Une plante a besoin d’eau, de terre et de soleil pour grandir." },
-      { e:"🦋", n:"Papillon", t:"Le papillon était d’abord une chenille. Puis il a des ailes." },
-      { e:"🧊", n:"Glace", t:"Quand l’eau a très froid, elle devient de la glace." },
-      { e:"💨", n:"Vent", t:"Le vent, c’est de l’air qui bouge. Il fait danser les feuilles." },
-      { e:"🧲", n:"Aimant", t:"Un aimant attire le métal. Comme par magie !" },
-      { e:"🫧", n:"Bulles", t:"Les bulles sont remplies d’air. Elles sont rondes et légères." }
+      { e:"🌧️", n:"Pluie", t:"La pluie, c’est de l’eau qui tombe des nuages.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Rain.jpg?width=640" },
+      { e:"🌈", n:"Arc-en-ciel", t:"L’arc-en-ciel apparaît quand le soleil brille pendant la pluie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Rainbow.png?width=640" },
+      { e:"🌱", n:"Plante", t:"Une plante a besoin d’eau, de terre et de soleil pour grandir.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Seedling.jpg?width=640" },
+      { e:"🦋", n:"Papillon", t:"Le papillon était d’abord une chenille. Puis il a des ailes.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Monarch_Butterfly_Danaus_plexippus_on_Purple_Coneflower.jpg?width=640" },
+      { e:"🧊", n:"Glace", t:"Quand l’eau a très froid, elle devient de la glace.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Iceberg.jpg?width=640" },
+      { e:"💨", n:"Vent", t:"Le vent, c’est de l’air qui bouge. Il fait danser les feuilles.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wind.jpg?width=640" },
+      { e:"🧲", n:"Aimant", t:"Un aimant attire le métal. Comme par magie !", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Horseshoe_magnet.jpg?width=640" },
+      { e:"🫧", n:"Bulles", t:"Les bulles sont remplies d’air. Elles sont rondes et légères.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Soap_bubble.jpg?width=640" }
     ],
     quiz: [
       { q:"De quoi a besoin une plante pour grandir ?", e:"🌱", ok:"D’eau et de soleil", opts:["D’eau et de soleil","De bonbons","D’une télé"], oe:["☀️","🍬","📺"] },
@@ -45,14 +45,14 @@ const DATA = {
     title: "Les métiers",
     welcome: "Les métiers, ce sont les travaux des grandes personnes. Chacun aide les autres.",
     items: [
-      { e:"👩‍⚕️", n:"Docteur", t:"Le docteur soigne les gens quand ils sont malades." },
-      { e:"👩‍🚒", n:"Pompier", t:"Le pompier éteint le feu et aide les personnes en danger." },
-      { e:"👩‍🏫", n:"Maîtresse", t:"La maîtresse apprend à lire, à compter et à jouer à l’école." },
-      { e:"👨‍🍳", n:"Cuisinier", t:"Le cuisinier prépare de bons plats à manger." },
-      { e:"👷", n:"Maçon", t:"Le maçon construit les maisons avec des briques." },
-      { e:"👩‍🌾", n:"Agricultrice", t:"L’agricultrice fait pousser les fruits, les légumes et le blé." },
-      { e:"👩‍✈️", n:"Pilote", t:"Le pilote conduit l’avion dans le ciel." },
-      { e:"👮", n:"Policier", t:"Le policier aide à ce que tout le monde soit en sécurité." }
+      { e:"👩‍⚕️", n:"Docteur", t:"Le docteur soigne les gens quand ils sont malades.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Doctor_with_patient.jpg/640px-Doctor_with_patient.jpg" },
+      { e:"👩‍🚒", n:"Pompier", t:"Le pompier éteint le feu et aide les personnes en danger.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Firefighters_at_work.jpg/640px-Firefighters_at_work.jpg" },
+      { e:"👩‍🏫", n:"Maîtresse", t:"La maîtresse apprend à lire, à compter et à jouer à l’école.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Classroom_teacher.jpg/640px-Classroom_teacher.jpg" },
+      { e:"👨‍🍳", n:"Cuisinier", t:"Le cuisinier prépare de bons plats à manger.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Chef_cooking.jpg/640px-Chef_cooking.jpg" },
+      { e:"👷", n:"Maçon", t:"Le maçon construit les maisons avec des briques.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Bricklayer_at_work.jpg/640px-Bricklayer_at_work.jpg" },
+      { e:"👩‍🌾", n:"Agricultrice", t:"L’agricultrice fait pousser les fruits, les légumes et le blé.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Farmer_in_field.jpg/640px-Farmer_in_field.jpg" },
+      { e:"👩‍✈️", n:"Pilote", t:"Le pilote conduit l’avion dans le ciel.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Airline_pilot_in_cockpit.jpg/640px-Airline_pilot_in_cockpit.jpg" },
+      { e:"👮", n:"Policier", t:"Le policier aide à ce que tout le monde soit en sécurité.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Police_officer.jpg/480px-Police_officer.jpg" }
     ],
     quiz: [
       { q:"Qui soigne les malades ?", e:"👩‍⚕️", ok:"Le docteur", opts:["Le docteur","Le nuage","Le crayon"], oe:["👩‍⚕️","☁️","✏️"] },
@@ -66,14 +66,14 @@ const DATA = {
     title: "L’histoire",
     welcome: "Il y a très longtemps, les gens vivaient autrement. On va voir des châteaux et des dinosaures.",
     items: [
-      { e:"🦕", n:"Dinosaure", t:"Il y a très, très longtemps, la Terre était un grand jardin. Des dinosaures marchaient, mangeaient des plantes ou chassaient. Regarde : ils bougent dans leur monde." },
-      { e:"🏰", n:"Château", t:"Le château est une grande maison en pierre, avec des tours. Le drapeau flotte. Dedans vivaient le roi, la reine et les chevaliers." },
-      { e:"👑", n:"Roi et reine", t:"Le roi et la reine habitaient au château. Ils décidaient des règles du pays et recevaient les habitants." },
-      { e:"⚔️", n:"Chevalier", t:"Le chevalier protège le château. Il porte une armure et voyage à cheval pour aider les gens." },
-      { e:"🏺", n:"Pot ancien", t:"Avec de la terre, on fabriquait des pots. On y gardait l’eau, le grain et la nourriture." },
-      { e:"🗿", n:"Statue", t:"Les statues sont des sculptures en pierre. Elles racontent des histoires des gens d’avant." },
-      { e:"🛶", n:"Bateau ancien", t:"Avant les voitures, on traversait la mer en bateau. Le vent et les rames faisaient avancer." },
-      { e:"🔥", n:"Feu", t:"Le feu réchauffait, cuisait les aliments et éclairait la nuit. On faisait très attention." }
+      { e:"🦕", n:"Dinosaure", t:"Il y a très, très longtemps, la Terre était un grand jardin. Des dinosaures marchaient, mangeaient des plantes ou chassaient.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Late%20Cretaceous%20Dinosaurs%20by%20Knight.jpg?width=800" },
+      { e:"🏰", n:"Château", t:"Le château est une grande maison en pierre, avec des tours. Dedans vivaient le roi, la reine et les chevaliers.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Schloss%20Neuschwanstein%202013.jpg?width=800" },
+      { e:"👑", n:"Roi et reine", t:"Le roi et la reine habitaient au château. Ils décidaient des règles du pays et recevaient les habitants.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Louis_XIV_of_France.jpg?width=800" },
+      { e:"⚔️", n:"Chevalier", t:"Le chevalier protège le château. Il porte une armure et voyage à cheval pour aider les gens.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Knight%20in%20armour.jpg?width=800" },
+      { e:"🏺", n:"Pot ancien", t:"Avec de la terre, on fabriquait des pots. On y gardait l’eau, le grain et la nourriture.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ancient%20Greek%20pottery.jpg?width=800" },
+      { e:"🗿", n:"Statue", t:"Les statues sont des sculptures en pierre. Elles racontent des histoires des gens d’avant.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Moais%20en%20Rano%20Raraku.JPG?width=800" },
+      { e:"🛶", n:"Bateau ancien", t:"Avant les voitures, on traversait la mer en bateau. Le vent et les rames faisaient avancer.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Viking%20ship.jpg?width=800" },
+      { e:"🔥", n:"Feu", t:"Le feu réchauffait, cuisait les aliments et éclairait la nuit. On faisait très attention.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Campfire.jpg?width=800" }
     ],
     quiz: [
       { q:"Qui vivait il y a très, très longtemps ?", e:"🦕", ok:"Les dinosaures", opts:["Les dinosaures","Les tablettes","Les frigos"], oe:["🦕","📱","🧊"] },
@@ -87,14 +87,14 @@ const DATA = {
     title: "La géographie",
     welcome: "La géographie, c’est la Terre : les pays, la mer, les montagnes et les forêts.",
     items: [
-      { e:"🗺️", n:"Carte", t:"Une carte montre les pays, les mers et les chemins." },
-      { e:"🇫🇷", n:"France", t:"La France est notre pays. Sa capitale est Paris." },
-      { e:"🗼", n:"Paris", t:"Paris a la tour Eiffel. Elle est très haute et très connue." },
-      { e:"🏔️", n:"Montagne", t:"Les montagnes sont très hautes. En haut, il y a souvent de la neige." },
-      { e:"🌊", n:"Mer", t:"La mer est une grande étendue d’eau salée. On peut y nager." },
-      { e:"🌲", n:"Forêt", t:"Dans la forêt, il y a beaucoup d’arbres, d’oiseaux et de petits animaux." },
-      { e:"🏜️", n:"Désert", t:"Le désert est un endroit très sec, avec beaucoup de sable." },
-      { e:"🌋", n:"Volcan", t:"Un volcan est une montagne qui peut laisser sortir de la lave très chaude." }
+      { e:"🗺️", n:"Carte", t:"Une carte montre les pays, les mers et les chemins.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/World_map_blank_without_borders.svg?width=800" },
+      { e:"🇫🇷", n:"France", t:"La France est notre pays. Sa capitale est Paris.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_France.svg?width=800" },
+      { e:"🗼", n:"Paris", t:"Paris a la tour Eiffel. Elle est très haute et très connue.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=800" },
+      { e:"🏔️", n:"Montagne", t:"Les montagnes sont très hautes. En haut, il y a souvent de la neige.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Mont_Blanc_from_above.jpg?width=800" },
+      { e:"🌊", n:"Mer", t:"La mer est une grande étendue d’eau salée. On peut y nager.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ocean_waves.jpg?width=800" },
+      { e:"🌲", n:"Forêt", t:"Dans la forêt, il y a beaucoup d’arbres, d’oiseaux et de petits animaux.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Temperate_forest.jpg?width=800" },
+      { e:"🏜️", n:"Désert", t:"Le désert est un endroit très sec, avec beaucoup de sable.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Sahara_desert.jpg?width=800" },
+      { e:"🌋", n:"Volcan", t:"Un volcan est une montagne qui peut laisser sortir de la lave très chaude.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Etna_eruption.jpg?width=800" }
     ],
     quiz: [
       { q:"Quel est notre pays ?", e:"🇫🇷", ok:"La France", opts:["La France","La Lune","Le frigo"], oe:["🇫🇷","🌙","🧊"] },
