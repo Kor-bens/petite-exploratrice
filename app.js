@@ -71,15 +71,27 @@ function render() {
     prog.style.width = "100%";
     qnum.textContent = "";
     box.innerHTML = `
-      <p class="solar-hint">1 doigt : tourner · 2 doigts : zoomer / bouger · tape une planète</p>
+      <p class="solar-hint">Glisse pour tourner · pince pour zoomer · ou tape une planète en bas</p>
       <div class="solar3d" id="solar3d">
         <div class="cam-btns">
-          <button type="button" onclick="solarZoom(0.75)">＋</button>
-          <button type="button" onclick="solarZoom(1.35)">－</button>
-          <button type="button" onclick="solarReset()">↻</button>
+          <button type="button" onclick="solarZoom(0.72)" aria-label="Zoomer">＋</button>
+          <button type="button" onclick="solarZoom(1.38)" aria-label="Dézoomer">－</button>
+          <button type="button" onclick="solarReset()" aria-label="Recentrer">↻</button>
         </div>
       </div>
-      <div class="solar-fact" id="fact">Le Soleil est au milieu. Approche-toi, tourne autour, visite les planètes.</div>`;
+      <div class="planet-bar">
+        <button type="button" onclick="tapPlanet('soleil')"><span>☀️</span>Soleil</button>
+        <button type="button" onclick="tapPlanet('mercure')"><span>🪨</span>Mercure</button>
+        <button type="button" onclick="tapPlanet('venus')"><span>🟡</span>Vénus</button>
+        <button type="button" onclick="tapPlanet('terre')"><span>🌍</span>Terre</button>
+        <button type="button" onclick="tapPlanet('lune')"><span>🌙</span>Lune</button>
+        <button type="button" onclick="tapPlanet('mars')"><span>🔴</span>Mars</button>
+        <button type="button" onclick="tapPlanet('jupiter')"><span>🟠</span>Jupiter</button>
+        <button type="button" onclick="tapPlanet('saturne')"><span>🪐</span>Saturne</button>
+        <button type="button" onclick="tapPlanet('uranus')"><span>🟢</span>Uranus</button>
+        <button type="button" onclick="tapPlanet('neptune')"><span>🔵</span>Neptune</button>
+      </div>
+      <div class="solar-fact" id="fact">Le Soleil est au milieu. Tape une planète ci-dessous pour l’écouter.</div>`;
     requestAnimationFrame(startSolar3D);
     return;
   }
@@ -104,84 +116,95 @@ function render() {
 }
 function worldMapHTML() {
   return `
-    <p class="say">Tape un continent ou un drapeau.</p>
-    <svg class="world-map" viewBox="0 0 1000 540" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#9ad8ff"/><stop offset="1" stop-color="#3d94d9"/>
-        </linearGradient>
-      </defs>
-      <rect width="1000" height="540" fill="url(#ocean)"/>
-      <ellipse cx="90" cy="70" rx="26" ry="10" fill="#fff" opacity=".45"/>
-      <ellipse cx="430" cy="45" rx="34" ry="12" fill="#fff" opacity=".35"/>
-      <ellipse cx="780" cy="80" rx="22" ry="9" fill="#fff" opacity=".4"/>
+    <p class="map-title">LA CARTE DU MONDE</p>
+    <svg class="world-map" viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1000" height="560" fill="#1e90ff"/>
+      <g fill="#7ec8ff" opacity=".55">
+        <ellipse cx="120" cy="210" rx="10" ry="5"/><ellipse cx="360" cy="250" rx="12" ry="5"/>
+        <ellipse cx="620" cy="300" rx="11" ry="5"/><ellipse cx="740" cy="240" rx="9" ry="4"/>
+        <ellipse cx="880" cy="210" rx="10" ry="4"/>
+      </g>
 
-      <!-- Amérique du Nord : Alaska, Canada, USA, Mexique -->
-      <path class="land" data-k="amerique-n" onclick="tapGeo('amerique-n')" fill="#f4c430" d="
-        M70,95 C95,70 130,62 155,78 C175,58 205,55 225,72
-        C255,50 310,48 355,68 C395,58 430,78 438,108
-        C428,138 400,148 372,142 C350,168 318,178 285,172
-        C260,198 228,208 198,188 C170,210 145,198 138,172
-        C112,168 88,148 78,128 C62,120 58,108 70,95Z
-        M148,208 C168,200 188,214 186,232 C168,248 148,238 148,208Z"/>
+      <path class="land" data-k="amerique-n" onclick="tapGeo('amerique-n')" fill="#ef7a22" d="
+        M48,95 C78,58 118,48 148,62 C175,40 220,38 258,58
+        C300,32 355,36 398,62 C430,52 455,72 452,108
+        C438,138 400,148 368,138 C348,168 312,182 272,172
+        C248,198 214,210 178,188 C150,214 122,198 112,168
+        C82,162 58,138 48,112 C36,108 34,98 48,95Z
+        M155,205 C178,196 198,212 196,232 C176,250 152,238 155,205Z"/>
 
-      <!-- Amérique du Sud -->
-      <path class="land" data-k="amerique-s" onclick="tapGeo('amerique-s')" fill="#e17055" d="
-        M228,250 C258,238 292,248 308,278 C322,312 318,348 308,382
-        C298,418 278,448 258,458 C242,448 238,422 246,392
-        C236,360 222,328 218,298 C214,272 216,256 228,250Z"/>
+      <path class="land" data-k="amerique-s" onclick="tapGeo('amerique-s')" fill="#f48fb1" d="
+        M198,248 C236,232 278,242 298,278 C314,318 308,362 292,404
+        C276,444 252,472 228,478 C210,462 208,428 218,392
+        C206,356 190,318 186,286 C182,262 186,252 198,248Z"/>
 
-      <!-- Europe : îles + Scandinavie + Europe de l'Ouest -->
-      <path class="land" data-k="europe" onclick="tapGeo('europe')" fill="#a29bfe" d="
-        M478,72 C498,52 528,50 548,68 C562,58 578,66 574,84
-        C592,88 602,104 590,118 C578,138 548,146 522,140
-        C500,152 478,146 468,128 C458,110 460,88 478,72Z
-        M452,118 C462,112 472,122 466,132 C456,136 448,126 452,118Z"/>
+      <path class="land" data-k="europe" onclick="tapGeo('europe')" fill="#e53935" d="
+        M455,68 C482,42 528,40 552,62 C572,48 598,58 594,82
+        C618,90 628,112 608,128 C590,152 552,162 518,152
+        C492,164 468,154 456,132 C444,110 440,86 455,68Z
+        M428,118 C440,110 452,122 446,134 C434,138 422,126 428,118Z"/>
 
-      <!-- Afrique -->
-      <path class="land" data-k="afrique" onclick="tapGeo('afrique')" fill="#e2b04a" d="
-        M478,158 C518,148 558,158 578,188 C598,218 602,258 590,298
-        C578,338 548,368 518,378 C488,372 468,348 462,318
-        C448,288 452,248 458,218 C462,188 468,164 478,158Z
-        M538,382 C552,378 562,392 552,404 C538,408 528,394 538,382Z"/>
+      <path class="land" data-k="afrique" onclick="tapGeo('afrique')" fill="#43a047" d="
+        M458,168 C508,152 558,162 582,198 C604,234 608,278 592,322
+        C574,366 538,398 502,408 C464,400 442,372 436,336
+        C422,300 428,254 436,220 C442,190 448,174 458,168Z
+        M528,412 C546,408 558,424 546,438 C528,444 516,426 528,412Z"/>
 
-      <!-- Asie : Russie, Chine, Inde, péninsule, Japon à part -->
-      <path class="land" data-k="asie" onclick="tapGeo('asie')" fill="#3dcf9a" d="
-        M598,58 C668,38 758,42 828,72 C878,92 908,118 900,148
-        C872,168 832,162 798,172 C768,198 738,208 702,198
-        C678,228 648,238 622,218 C598,198 582,168 588,138
-        C580,108 582,78 598,58Z
-        M668,208 C692,198 718,218 708,242 C688,262 658,248 668,208Z
-        M848,128 C868,122 888,132 886,148 C872,158 850,148 848,128Z"/>
+      <path class="land" data-k="asie" onclick="tapGeo('asie')" fill="#ffb300" d="
+        M598,48 C678,22 778,28 858,62 C908,86 942,118 928,152
+        C892,172 848,162 808,176 C772,208 738,222 698,208
+        C668,242 632,254 602,228 C574,204 558,168 568,132
+        C562,98 568,66 598,48Z
+        M655,218 C686,206 718,230 706,258 C682,278 646,258 655,218Z
+        M868,128 C892,120 916,134 912,154 C894,164 868,150 868,128Z"/>
 
-      <!-- Océanie : Australie + NZ -->
-      <path class="land" data-k="oceanie" onclick="tapGeo('oceanie')" fill="#74b9ff" d="
-        M798,292 C848,272 908,282 928,318 C932,348 900,368 858,362
-        C818,358 788,338 792,312 C792,300 794,294 798,292Z
-        M918,378 C938,372 952,388 940,400 C922,406 910,388 918,378Z"/>
+      <path class="land" data-k="oceanie" onclick="tapGeo('oceanie')" fill="#6d4c41" d="
+        M778,300 C838,278 908,288 932,328 C938,360 900,382 852,374
+        C808,368 772,344 776,316 C776,306 776,302 778,300Z
+        M918,392 C942,384 960,404 946,418 C924,426 910,404 918,392Z"/>
 
-      <!-- Antarctique -->
-      <path class="land" data-k="antarctique" onclick="tapGeo('antarctique')" fill="#eef4f8" d="
-        M80,492 C200,462 400,448 500,452 C700,448 880,468 960,498
-        L960,540 L80,540Z"/>
+      <path class="land" data-k="antarctique" onclick="tapGeo('antarctique')" fill="#eceff1" d="
+        M40,508 C180,472 400,458 500,462 C720,456 900,478 980,512
+        L980,560 L40,560Z"/>
 
-      ${pin(210,150,"🇺🇸","usa")}
-      ${pin(168,118,"🇨🇦","canada")}
-      ${pin(168,220,"🇲🇽","mexique")}
-      ${pin(268,320,"🇧🇷","bresil")}
+      <text class="map-label" x="175" y="128" text-anchor="middle">AMÉRIQUE</text>
+      <text class="map-label" x="175" y="146" text-anchor="middle">DU NORD</text>
+      <text class="map-label" x="238" y="340" text-anchor="middle">AMÉRIQUE</text>
+      <text class="map-label" x="238" y="358" text-anchor="middle">DU SUD</text>
+      <text class="map-label" x="525" y="108" text-anchor="middle">EUROPE</text>
+      <text class="map-label" x="512" y="268" text-anchor="middle">AFRIQUE</text>
+      <text class="map-label" x="760" y="118" text-anchor="middle">ASIE</text>
+      <text class="map-label" x="848" y="342" text-anchor="middle">OCÉANIE</text>
+      <text class="map-label" x="500" y="538" text-anchor="middle" style="fill:#37474f;stroke:rgba(255,255,255,.5)">ANTARCTIQUE</text>
+
+      <text class="map-animal" x="118" y="88">🐻</text>
+      <text class="map-animal" x="210" y="78">🦬</text>
+      <text class="map-animal" x="248" y="318">🐆</text>
+      <text class="map-animal" x="498" y="198">🦒</text>
+      <text class="map-animal" x="468" y="318">🐘</text>
+      <text class="map-animal" x="720" y="88">🐎</text>
+      <text class="map-animal" x="820" y="98">🐼</text>
+      <text class="map-animal" x="820" y="328">🦘</text>
+      <text class="map-animal" x="430" y="528">🐧</text>
+      <text class="map-animal" x="360" y="198">🐋</text>
+
+      ${pin(208,158,"🇺🇸","usa")}
+      ${pin(158,108,"🇨🇦","canada")}
+      ${pin(168,218,"🇲🇽","mexique")}
+      ${pin(258,328,"🇧🇷","bresil")}
       ${pin(508,128,"🇫🇷","france",true)}
-      ${pin(488,148,"🇪🇸","espagne")}
-      ${pin(532,146,"🇮🇹","italie")}
+      ${pin(486,150,"🇪🇸","espagne")}
+      ${pin(534,148,"🇮🇹","italie")}
       ${pin(548,112,"🇩🇪","allemagne")}
-      ${pin(498,102,"🇬🇧","uk")}
-      ${pin(538,220,"🇪🇬","egypte")}
-      ${pin(508,280,"🇰🇪","kenya")}
-      ${pin(698,228,"🇮🇳","inde")}
+      ${pin(492,98,"🇬🇧","uk")}
+      ${pin(538,218,"🇪🇬","egypte")}
+      ${pin(508,292,"🇰🇪","kenya")}
+      ${pin(698,232,"🇮🇳","inde")}
       ${pin(778,148,"🇨🇳","chine")}
-      ${pin(868,140,"🇯🇵","japon")}
-      ${pin(848,328,"🇦🇺","australie")}
+      ${pin(888,138,"🇯🇵","japon")}
+      ${pin(848,338,"🇦🇺","australie")}
     </svg>
-    <div class="map-fact" id="fact">Les continents sont les grandes terres. Les drapeaux sont des pays. La France est en jaune. 👆</div>`;
+    <div class="map-fact" id="fact">Tape un continent coloré ou un drapeau. La France est le rond jaune. 👆</div>`;
 }
 function pin(x,y,flag,key,home){
   return `<g class="pin${home?" home":""}" onclick="event.stopPropagation();tapGeo('${key}')" transform="translate(${x},${y})">
@@ -236,7 +259,7 @@ function startSolar3D() {
   const w = holder.clientWidth || 360;
   const h = holder.clientHeight || 400;
   const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 400);
-  camera.position.set(0, 18, 42);
+  camera.position.set(0, 10, 26);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -496,6 +519,7 @@ function startSolar3D() {
 
   solar = { renderer, camera, controls, onResize, raf: 0 };
   window.addEventListener("resize", onResize);
+  requestAnimationFrame(onResize);
   solar.raf = requestAnimationFrame(tick);
 }
 
@@ -508,7 +532,7 @@ function solarZoom(factor) {
 }
 function solarReset() {
   if (!solar) return;
-  solar.camera.position.set(0, 18, 42);
+  solar.camera.position.set(0, 10, 26);
   solar.controls.target.set(0, 0, 0);
   solar.controls.autoRotate = true;
 }
