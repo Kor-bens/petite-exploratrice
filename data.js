@@ -66,14 +66,14 @@ const DATA = {
     title: "L’histoire",
     welcome: "Il y a très longtemps, les gens vivaient autrement. On va voir des châteaux et des dinosaures.",
     items: [
-      { e:"🦕", n:"Dinosaure", t:"Les dinosaures étaient de très grands animaux. Ils vivaient il y a très longtemps." },
-      { e:"🏰", n:"Château", t:"Autrefois, les rois et les reines habitaient dans de grands châteaux." },
-      { e:"👑", n:"Roi et reine", t:"Le roi et la reine dirigeaient le pays, il y a longtemps." },
-      { e:"⚔️", n:"Chevalier", t:"Le chevalier protégeait le château. Il avait une armure brillante." },
-      { e:"🏺", n:"Pot ancien", t:"Les gens d’avant fabriquaient des pots en terre pour garder l’eau et la nourriture." },
-      { e:"🗿", n:"Statue", t:"Les statues racontent des histoires d’il y a très longtemps." },
-      { e:"🛶", n:"Bateau ancien", t:"Avant les voitures, on voyageait souvent en bateau ou à cheval." },
-      { e:"🔥", n:"Feu", t:"Autrefois, le feu servait à se chauffer, à cuisiner et à voir la nuit." }
+      { e:"🦕", n:"Dinosaure", t:"Il y a très, très longtemps, la Terre était un grand jardin. Des dinosaures marchaient, mangeaient des plantes ou chassaient. Regarde : ils bougent dans leur monde." },
+      { e:"🏰", n:"Château", t:"Le château est une grande maison en pierre, avec des tours. Le drapeau flotte. Dedans vivaient le roi, la reine et les chevaliers." },
+      { e:"👑", n:"Roi et reine", t:"Le roi et la reine habitaient au château. Ils décidaient des règles du pays et recevaient les habitants." },
+      { e:"⚔️", n:"Chevalier", t:"Le chevalier protège le château. Il porte une armure et voyage à cheval pour aider les gens." },
+      { e:"🏺", n:"Pot ancien", t:"Avec de la terre, on fabriquait des pots. On y gardait l’eau, le grain et la nourriture." },
+      { e:"🗿", n:"Statue", t:"Les statues sont des sculptures en pierre. Elles racontent des histoires des gens d’avant." },
+      { e:"🛶", n:"Bateau ancien", t:"Avant les voitures, on traversait la mer en bateau. Le vent et les rames faisaient avancer." },
+      { e:"🔥", n:"Feu", t:"Le feu réchauffait, cuisait les aliments et éclairait la nuit. On faisait très attention." }
     ],
     quiz: [
       { q:"Qui vivait il y a très, très longtemps ?", e:"🦕", ok:"Les dinosaures", opts:["Les dinosaures","Les tablettes","Les frigos"], oe:["🦕","📱","🧊"] },
@@ -116,7 +116,11 @@ const PLANETS = {
   jupiter: { n:"Jupiter", t:"Jupiter est la plus grosse planète. Elle est énorme !" },
   saturne: { n:"Saturne", t:"Saturne a de beaux anneaux autour d’elle, comme un cerceau." },
   uranus: { n:"Uranus", t:"Uranus est une planète bleue-verte, très loin du Soleil." },
-  neptune: { n:"Neptune", t:"Neptune est la dernière grande planète. Elle est bleu foncé." }
+  neptune: { n:"Neptune", t:"Neptune est la dernière grande planète. Elle est bleu foncé." },
+  proxima: { n:"Proxima", t:"Proxima est une autre étoile, très loin. Elle a aussi des planètes." },
+  exo1: { n:"Petite planète", t:"Autour d’autres étoiles, il y a aussi des planètes. On les appelle des exoplanètes." },
+  "voie-lactee": { n:"Voie lactée", t:"Notre galaxie s’appelle la Voie lactée. Elle contient des milliards d’étoiles." },
+  andromede: { n:"Andromède", t:"Andromède est une autre galaxie, encore plus loin. On peut voyager avec les boutons." }
 };
 
 const GEO = {

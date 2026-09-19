@@ -260,9 +260,78 @@
       margin-top: 10px; background: #fff7d6; border-radius: 16px;
       padding: 12px 14px; font-size: 1.08rem; min-height: 58px;
     }
+    .scene {
+      position: relative; overflow: hidden;
+      height: min(38vh, 280px); border-radius: 18px; margin: 8px 0 10px;
+    }
+    .scene .actor { position: absolute; font-size: 2.2rem; line-height: 1; }
+    .sc-dino {
+      background: linear-gradient(#7ec8ff 0 42%, #3d8b40 42% 70%, #6b4f2a 70%);
+    }
+    .sc-dino .volcan { left: 8%; top: 18%; font-size: 3rem; }
+    .sc-dino .d1 { left: 28%; bottom: 18%; animation: walk 3.6s ease-in-out infinite; }
+    .sc-dino .d2 { left: 58%; bottom: 14%; font-size: 3.2rem; animation: walk 4.4s ease-in-out infinite reverse; }
+    .sc-dino .d3 { left: 78%; bottom: 22%; font-size: 1.6rem; animation: hop 1.4s ease-in-out infinite; }
+    .sc-castle {
+      background: linear-gradient(#87cefa 0 55%, #7cba6b 55%);
+    }
+    .sc-castle .cloud { top: 10%; font-size: 1.6rem; animation: drift 8s linear infinite; }
+    .sc-castle .keep { left: 50%; bottom: 10%; transform: translateX(-50%); font-size: 5.2rem; }
+    .sc-castle .flag { left: 62%; top: 22%; animation: wave 1s ease-in-out infinite; }
+    .sc-roi {
+      background: linear-gradient(#4a2c6a 0 30%, #7b4b28 30%);
+    }
+    .sc-roi .trone { left: 50%; bottom: 8%; transform: translateX(-50%); font-size: 4.4rem; }
+    .sc-roi .c1 { left: 22%; bottom: 28%; animation: hop 1.8s ease-in-out infinite; }
+    .sc-roi .c2 { right: 22%; bottom: 28%; animation: hop 1.8s ease-in-out infinite .3s; }
+    .sc-chevalier {
+      background: linear-gradient(#9ad0ff 0 50%, #88b04b 50%);
+    }
+    .sc-chevalier .tour { left: 10%; bottom: 8%; font-size: 4rem; }
+    .sc-chevalier .kni { left: 40%; bottom: 12%; animation: walk 2.8s ease-in-out infinite; font-size: 3rem; }
+    .sc-pot {
+      background: linear-gradient(#f3e2c4 0 40%, #c4a574 40%);
+    }
+    .sc-pot .p1 { left: 20%; bottom: 16%; animation: hop 2s ease-in-out infinite; }
+    .sc-pot .p2 { left: 48%; bottom: 12%; font-size: 3.4rem; }
+    .sc-pot .p3 { left: 72%; bottom: 18%; animation: hop 2.2s ease-in-out infinite .4s; }
+    .sc-statue {
+      background: linear-gradient(#f7d794 0 58%, #c9a227 58%);
+    }
+    .sc-statue .s1 { left: 18%; bottom: 10%; font-size: 3.6rem; animation: sway 3s ease-in-out infinite; }
+    .sc-statue .s2 { left: 46%; bottom: 8%; font-size: 4.4rem; }
+    .sc-statue .s3 { left: 72%; bottom: 12%; font-size: 3.2rem; animation: sway 3.4s ease-in-out infinite reverse; }
+    .sc-bateau {
+      background: linear-gradient(#7ec8ff 0 58%, #0984e3 58%);
+    }
+    .sc-bateau .wave { left: 0; right: 0; bottom: 8%; text-align: center; font-size: 1.6rem; letter-spacing: 8px; animation: drift 6s linear infinite; }
+    .sc-bateau .boat { left: 20%; bottom: 22%; font-size: 3.4rem; animation: sail 6s ease-in-out infinite; }
+    .sc-feu {
+      background: linear-gradient(#1b1238 0 48%, #3d2b1f 48%);
+    }
+    .sc-feu .cave { left: 8%; bottom: 10%; font-size: 3rem; }
+    .sc-feu .fire { left: 46%; bottom: 16%; font-size: 3.6rem; animation: flicker .35s ease-in-out infinite; }
+    .sc-feu .kid { left: 68%; bottom: 18%; animation: sway 2.4s ease-in-out infinite; }
+    @keyframes walk { 50% { transform: translateX(18px); } }
+    @keyframes hop { 50% { transform: translateY(-10px); } }
+    @keyframes drift { from { transform: translateX(-20px); } to { transform: translateX(40px); } }
+    @keyframes wave { 50% { transform: rotate(-14deg); } }
+    @keyframes sway { 50% { transform: rotate(6deg); } }
+    @keyframes sail { 50% { transform: translateX(90px) translateY(-4px); } }
+    @keyframes flicker { 50% { transform: scale(1.12); filter: brightness(1.3); } }
+    .travel-bar {
+      display: flex; gap: 6px; overflow-x: auto; padding: 6px 2px 4px;
+    }
+    .travel-bar button {
+      flex: 0 0 auto; padding: 8px 12px; font-size: .88rem;
+      background: rgba(255,255,255,.14); color: #fff;
+    }
+    .travel-bar button.on { background: #ffeaa7; color: #2d1b4e; }
   
   </style>
 </head>
+<body>
+
 <body>
   <div id="app">
     <header>
@@ -384,14 +453,14 @@ const DATA = {
     title: "L’histoire",
     welcome: "Il y a très longtemps, les gens vivaient autrement. On va voir des châteaux et des dinosaures.",
     items: [
-      { e:"🦕", n:"Dinosaure", t:"Les dinosaures étaient de très grands animaux. Ils vivaient il y a très longtemps." },
-      { e:"🏰", n:"Château", t:"Autrefois, les rois et les reines habitaient dans de grands châteaux." },
-      { e:"👑", n:"Roi et reine", t:"Le roi et la reine dirigeaient le pays, il y a longtemps." },
-      { e:"⚔️", n:"Chevalier", t:"Le chevalier protégeait le château. Il avait une armure brillante." },
-      { e:"🏺", n:"Pot ancien", t:"Les gens d’avant fabriquaient des pots en terre pour garder l’eau et la nourriture." },
-      { e:"🗿", n:"Statue", t:"Les statues racontent des histoires d’il y a très longtemps." },
-      { e:"🛶", n:"Bateau ancien", t:"Avant les voitures, on voyageait souvent en bateau ou à cheval." },
-      { e:"🔥", n:"Feu", t:"Autrefois, le feu servait à se chauffer, à cuisiner et à voir la nuit." }
+      { e:"🦕", n:"Dinosaure", t:"Il y a très, très longtemps, la Terre était un grand jardin. Des dinosaures marchaient, mangeaient des plantes ou chassaient. Regarde : ils bougent dans leur monde." },
+      { e:"🏰", n:"Château", t:"Le château est une grande maison en pierre, avec des tours. Le drapeau flotte. Dedans vivaient le roi, la reine et les chevaliers." },
+      { e:"👑", n:"Roi et reine", t:"Le roi et la reine habitaient au château. Ils décidaient des règles du pays et recevaient les habitants." },
+      { e:"⚔️", n:"Chevalier", t:"Le chevalier protège le château. Il porte une armure et voyage à cheval pour aider les gens." },
+      { e:"🏺", n:"Pot ancien", t:"Avec de la terre, on fabriquait des pots. On y gardait l’eau, le grain et la nourriture." },
+      { e:"🗿", n:"Statue", t:"Les statues sont des sculptures en pierre. Elles racontent des histoires des gens d’avant." },
+      { e:"🛶", n:"Bateau ancien", t:"Avant les voitures, on traversait la mer en bateau. Le vent et les rames faisaient avancer." },
+      { e:"🔥", n:"Feu", t:"Le feu réchauffait, cuisait les aliments et éclairait la nuit. On faisait très attention." }
     ],
     quiz: [
       { q:"Qui vivait il y a très, très longtemps ?", e:"🦕", ok:"Les dinosaures", opts:["Les dinosaures","Les tablettes","Les frigos"], oe:["🦕","📱","🧊"] },
@@ -434,7 +503,11 @@ const PLANETS = {
   jupiter: { n:"Jupiter", t:"Jupiter est la plus grosse planète. Elle est énorme !" },
   saturne: { n:"Saturne", t:"Saturne a de beaux anneaux autour d’elle, comme un cerceau." },
   uranus: { n:"Uranus", t:"Uranus est une planète bleue-verte, très loin du Soleil." },
-  neptune: { n:"Neptune", t:"Neptune est la dernière grande planète. Elle est bleu foncé." }
+  neptune: { n:"Neptune", t:"Neptune est la dernière grande planète. Elle est bleu foncé." },
+  proxima: { n:"Proxima", t:"Proxima est une autre étoile, très loin. Elle a aussi des planètes." },
+  exo1: { n:"Petite planète", t:"Autour d’autres étoiles, il y a aussi des planètes. On les appelle des exoplanètes." },
+  "voie-lactee": { n:"Voie lactée", t:"Notre galaxie s’appelle la Voie lactée. Elle contient des milliards d’étoiles." },
+  andromede: { n:"Andromède", t:"Andromède est une autre galaxie, encore plus loin. On peut voyager avec les boutons." }
 };
 
 const GEO = {
@@ -543,6 +616,12 @@ function render() {
           <button type="button" onclick="solarZoom(1.38)" aria-label="Dézoomer">－</button>
           <button type="button" onclick="solarReset()" aria-label="Recentrer">↻</button>
         </div>
+      </div>
+      <div class="travel-bar">
+        <button type="button" class="on" id="tv-solaire" onclick="goSpace('solaire')">☀️ Notre système</button>
+        <button type="button" id="tv-autre" onclick="goSpace('autre')">✨ Autre étoile</button>
+        <button type="button" id="tv-galaxie" onclick="goSpace('galaxie')">🌌 Voie lactée</button>
+        <button type="button" id="tv-andromede" onclick="goSpace('andromede')">🌀 Andromède</button>
       </div>
       <div class="planet-bar">
         <button type="button" onclick="tapPlanet('soleil')"><span>☀️</span>Soleil</button>
@@ -686,13 +765,77 @@ function tapGeo(key){
   addStar(1);
 }
 
+function historyScene(name) {
+  const scenes = {
+    "Dinosaure": `<div class="scene sc-dino">
+      <span class="actor volcan">🌋</span>
+      <span class="actor d1">🦕</span>
+      <span class="actor d2">🦖</span>
+      <span class="actor d3">🥚</span>
+    </div>`,
+    "Château": `<div class="scene sc-castle">
+      <span class="actor cloud" style="left:12%">☁️</span>
+      <span class="actor cloud" style="left:70%;top:16%">☁️</span>
+      <span class="actor keep">🏰</span>
+      <span class="actor flag">🚩</span>
+    </div>`,
+    "Roi et reine": `<div class="scene sc-roi">
+      <span class="actor c1">👸</span>
+      <span class="actor trone">👑</span>
+      <span class="actor c2">🤴</span>
+    </div>`,
+    "Chevalier": `<div class="scene sc-chevalier">
+      <span class="actor tour">🏰</span>
+      <span class="actor kni">🏇</span>
+    </div>`,
+    "Pot ancien": `<div class="scene sc-pot">
+      <span class="actor p1">🪨</span>
+      <span class="actor p2">🏺</span>
+      <span class="actor p3">🪵</span>
+    </div>`,
+    "Statue": `<div class="scene sc-statue">
+      <span class="actor s1">🗿</span>
+      <span class="actor s2">🗿</span>
+      <span class="actor s3">🗿</span>
+    </div>`,
+    "Bateau ancien": `<div class="scene sc-bateau">
+      <span class="actor wave">🌊🌊🌊🌊🌊🌊</span>
+      <span class="actor boat">🛶</span>
+    </div>`,
+    "Feu": `<div class="scene sc-feu">
+      <span class="actor cave">🪨</span>
+      <span class="actor fire">🔥</span>
+      <span class="actor kid">🧒</span>
+    </div>`
+  };
+  return scenes[name] || "";
+}
 function showFact(i) {
   const it = DATA[worldKey].items[i];
-  document.getElementById("fact").innerHTML = `<strong>${it.e} ${it.n}</strong><br>${it.t}`;
+  const extra = worldKey === "histoire" ? historyScene(it.n) : "";
+  document.getElementById("fact").innerHTML = `${extra}<strong>${it.e} ${it.n}</strong><br>${it.t}`;
   speak(`${it.n}. ${it.t}`);
   addStar(1);
 }
 let solar = null;
+let spaceView = "solaire";
+
+function goSpace(view) {
+  spaceView = view;
+  document.querySelectorAll(".travel-bar button").forEach(b => b.classList.remove("on"));
+  const id = { solaire:"tv-solaire", autre:"tv-autre", galaxie:"tv-galaxie", andromede:"tv-andromede" }[view];
+  if (id) { const el = document.getElementById(id); if (el) el.classList.add("on"); }
+  const texts = {
+    solaire: "Nous voilà dans notre système solaire. Le Soleil est au milieu.",
+    autre: "On voyage vers une autre étoile. Elle a aussi des planètes autour d’elle.",
+    galaxie: "On s’éloigne. Voici notre galaxie, la Voie lactée. Des milliards d’étoiles.",
+    andromede: "Encore plus loin : la galaxie d’Andromède. Une immense spirale d’étoiles."
+  };
+  const fact = document.getElementById("fact");
+  if (fact) fact.textContent = texts[view];
+  speak(texts[view]);
+  startSolar3D();
+}
 
 function stopSolar3D() {
   if (!solar) return;
@@ -723,8 +866,14 @@ function startSolar3D() {
 
   const w = holder.clientWidth || 360;
   const h = holder.clientHeight || 400;
-  const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 400);
-  camera.position.set(0, 10, 26);
+  const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 800);
+  const startPos = {
+    solaire: [0, 10, 26],
+    autre: [0, 8, 22],
+    galaxie: [0, 16, 48],
+    andromede: [0, 12, 40]
+  }[spaceView] || [0, 10, 26];
+  camera.position.set(startPos[0], startPos[1], startPos[2]);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -876,7 +1025,7 @@ function startSolar3D() {
     const mesh = new THREE.Mesh(
       new THREE.SphereGeometry(radius, 48, 48),
       new THREE.MeshStandardMaterial({
-        map: TEX[key],
+        map: TEX[key] || TEX.mars,
         roughness: key === "venus" ? 0.85 : 0.5,
         metalness: 0.04,
         emissive: key === "soleil" ? 0xffaa00 : 0x000000
@@ -893,6 +1042,44 @@ function startSolar3D() {
     return mesh;
   }
 
+  if (spaceView === "galaxie" || spaceView === "andromede") {
+    const gCount = spaceView === "galaxie" ? 1800 : 1400;
+    const gPos = [];
+    for (let i = 0; i < gCount; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const arm = Math.floor(Math.random() * 3);
+      const r = Math.pow(Math.random(), .55) * (spaceView === "andromede" ? 28 : 34);
+      const twist = a + r * 0.18 + arm * 2.1;
+      gPos.push(Math.cos(twist) * r, (Math.random() - 0.5) * 3.2, Math.sin(twist) * r);
+    }
+    const gg = new THREE.BufferGeometry();
+    gg.setAttribute("position", new THREE.Float32BufferAttribute(gPos, 3));
+    const gal = new THREE.Points(gg, new THREE.PointsMaterial({
+      color: spaceView === "andromede" ? 0xc9b6ff : 0xffe9b0, size: 0.42
+    }));
+    gal.userData.key = spaceView === "andromede" ? "andromede" : "voie-lactee";
+    scene.add(gal);
+    pickables.push(gal);
+    const core = new THREE.Mesh(
+      new THREE.SphereGeometry(2.2, 24, 24),
+      new THREE.MeshBasicMaterial({ color: spaceView === "andromede" ? 0xddbbff : 0xfff3c4 })
+    );
+    core.userData.key = gal.userData.key;
+    scene.add(core);
+    pickables.push(core);
+    movers.push({ pivot: gal, speed: 0.0012, mesh: gal });
+  } else if (spaceView === "autre") {
+    const star = new THREE.Mesh(
+      new THREE.SphereGeometry(2.1, 40, 40),
+      new THREE.MeshBasicMaterial({ color: 0xff8866 })
+    );
+    star.userData.key = "proxima";
+    scene.add(star);
+    pickables.push(star);
+    makePlanet("exo1", 0.7, 7.2, 0.018);
+    makePlanet("mars", 0.5, 11.4, 0.01);
+    makePlanet("neptune", 0.85, 16.2, 0.006);
+  } else {
   const sun = new THREE.Mesh(
     new THREE.SphereGeometry(2.6, 48, 48),
     new THREE.MeshBasicMaterial({ map: TEX.soleil })
@@ -946,6 +1133,7 @@ function startSolar3D() {
   });
   makePlanet("uranus", 0.95, 23.6, 0.0024);
   makePlanet("neptune", 0.92, 27.0, 0.0018);
+  }
 
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
@@ -976,7 +1164,7 @@ function startSolar3D() {
   function tick() {
     if (!solar) return;
     movers.forEach(m => { m.pivot.rotation.y += m.speed; if (m.mesh) m.mesh.rotation.y += 0.01; });
-    sun.rotation.y += 0.003;
+    if (typeof sun !== "undefined" && sun) sun.rotation.y += 0.003;
     controls.update();
     renderer.render(scene, camera);
     solar.raf = requestAnimationFrame(tick);
@@ -1083,6 +1271,6 @@ function burst(){
   requestAnimationFrame(loop);
 })();
 
-  </script>
+</script>
 </body>
 </html>

@@ -79,6 +79,12 @@ function render() {
           <button type="button" onclick="solarReset()" aria-label="Recentrer">↻</button>
         </div>
       </div>
+      <div class="travel-bar">
+        <button type="button" class="on" id="tv-solaire" onclick="goSpace('solaire')">☀️ Notre système</button>
+        <button type="button" id="tv-autre" onclick="goSpace('autre')">✨ Autre étoile</button>
+        <button type="button" id="tv-galaxie" onclick="goSpace('galaxie')">🌌 Voie lactée</button>
+        <button type="button" id="tv-andromede" onclick="goSpace('andromede')">🌀 Andromède</button>
+      </div>
       <div class="planet-bar">
         <button type="button" onclick="tapPlanet('soleil')"><span>☀️</span>Soleil</button>
         <button type="button" onclick="tapPlanet('mercure')"><span>🪨</span>Mercure</button>
@@ -221,13 +227,77 @@ function tapGeo(key){
   addStar(1);
 }
 
+function historyScene(name) {
+  const scenes = {
+    "Dinosaure": `<div class="scene sc-dino">
+      <span class="actor volcan">🌋</span>
+      <span class="actor d1">🦕</span>
+      <span class="actor d2">🦖</span>
+      <span class="actor d3">🥚</span>
+    </div>`,
+    "Château": `<div class="scene sc-castle">
+      <span class="actor cloud" style="left:12%">☁️</span>
+      <span class="actor cloud" style="left:70%;top:16%">☁️</span>
+      <span class="actor keep">🏰</span>
+      <span class="actor flag">🚩</span>
+    </div>`,
+    "Roi et reine": `<div class="scene sc-roi">
+      <span class="actor c1">👸</span>
+      <span class="actor trone">👑</span>
+      <span class="actor c2">🤴</span>
+    </div>`,
+    "Chevalier": `<div class="scene sc-chevalier">
+      <span class="actor tour">🏰</span>
+      <span class="actor kni">🏇</span>
+    </div>`,
+    "Pot ancien": `<div class="scene sc-pot">
+      <span class="actor p1">🪨</span>
+      <span class="actor p2">🏺</span>
+      <span class="actor p3">🪵</span>
+    </div>`,
+    "Statue": `<div class="scene sc-statue">
+      <span class="actor s1">🗿</span>
+      <span class="actor s2">🗿</span>
+      <span class="actor s3">🗿</span>
+    </div>`,
+    "Bateau ancien": `<div class="scene sc-bateau">
+      <span class="actor wave">🌊🌊🌊🌊🌊🌊</span>
+      <span class="actor boat">🛶</span>
+    </div>`,
+    "Feu": `<div class="scene sc-feu">
+      <span class="actor cave">🪨</span>
+      <span class="actor fire">🔥</span>
+      <span class="actor kid">🧒</span>
+    </div>`
+  };
+  return scenes[name] || "";
+}
 function showFact(i) {
   const it = DATA[worldKey].items[i];
-  document.getElementById("fact").innerHTML = `<strong>${it.e} ${it.n}</strong><br>${it.t}`;
+  const extra = worldKey === "histoire" ? historyScene(it.n) : "";
+  document.getElementById("fact").innerHTML = `${extra}<strong>${it.e} ${it.n}</strong><br>${it.t}`;
   speak(`${it.n}. ${it.t}`);
   addStar(1);
 }
 let solar = null;
+let spaceView = "solaire";
+
+function goSpace(view) {
+  spaceView = view;
+  document.querySelectorAll(".travel-bar button").forEach(b => b.classList.remove("on"));
+  const id = { solaire:"tv-solaire", autre:"tv-autre", galaxie:"tv-galaxie", andromede:"tv-andromede" }[view];
+  if (id) { const el = document.getElementById(id); if (el) el.classList.add("on"); }
+  const texts = {
+    solaire: "Nous voilà dans notre système solaire. Le Soleil est au milieu.",
+    autre: "On voyage vers une autre étoile. Elle a aussi des planètes autour d’elle.",
+    galaxie: "On s’éloigne. Voici notre galaxie, la Voie lactée. Des milliards d’étoiles.",
+    andromede: "Encore plus loin : la galaxie d’Andromède. Une immense spirale d’étoiles."
+  };
+  const fact = document.getElementById("fact");
+  if (fact) fact.textContent = texts[view];
+  speak(texts[view]);
+  startSolar3D();
+}
 
 function stopSolar3D() {
   if (!solar) return;
@@ -258,8 +328,14 @@ function startSolar3D() {
 
   const w = holder.clientWidth || 360;
   const h = holder.clientHeight || 400;
-  const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 400);
-  camera.position.set(0, 10, 26);
+  const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 800);
+  const startPos = {
+    solaire: [0, 10, 26],
+    autre: [0, 8, 22],
+    galaxie: [0, 16, 48],
+    andromede: [0, 12, 40]
+  }[spaceView] || [0, 10, 26];
+  camera.position.set(startPos[0], startPos[1], startPos[2]);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -411,7 +487,7 @@ function startSolar3D() {
     const mesh = new THREE.Mesh(
       new THREE.SphereGeometry(radius, 48, 48),
       new THREE.MeshStandardMaterial({
-        map: TEX[key],
+        map: TEX[key] || TEX.mars,
         roughness: key === "venus" ? 0.85 : 0.5,
         metalness: 0.04,
         emissive: key === "soleil" ? 0xffaa00 : 0x000000
@@ -428,6 +504,44 @@ function startSolar3D() {
     return mesh;
   }
 
+  if (spaceView === "galaxie" || spaceView === "andromede") {
+    const gCount = spaceView === "galaxie" ? 1800 : 1400;
+    const gPos = [];
+    for (let i = 0; i < gCount; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const arm = Math.floor(Math.random() * 3);
+      const r = Math.pow(Math.random(), .55) * (spaceView === "andromede" ? 28 : 34);
+      const twist = a + r * 0.18 + arm * 2.1;
+      gPos.push(Math.cos(twist) * r, (Math.random() - 0.5) * 3.2, Math.sin(twist) * r);
+    }
+    const gg = new THREE.BufferGeometry();
+    gg.setAttribute("position", new THREE.Float32BufferAttribute(gPos, 3));
+    const gal = new THREE.Points(gg, new THREE.PointsMaterial({
+      color: spaceView === "andromede" ? 0xc9b6ff : 0xffe9b0, size: 0.42
+    }));
+    gal.userData.key = spaceView === "andromede" ? "andromede" : "voie-lactee";
+    scene.add(gal);
+    pickables.push(gal);
+    const core = new THREE.Mesh(
+      new THREE.SphereGeometry(2.2, 24, 24),
+      new THREE.MeshBasicMaterial({ color: spaceView === "andromede" ? 0xddbbff : 0xfff3c4 })
+    );
+    core.userData.key = gal.userData.key;
+    scene.add(core);
+    pickables.push(core);
+    movers.push({ pivot: gal, speed: 0.0012, mesh: gal });
+  } else if (spaceView === "autre") {
+    const star = new THREE.Mesh(
+      new THREE.SphereGeometry(2.1, 40, 40),
+      new THREE.MeshBasicMaterial({ color: 0xff8866 })
+    );
+    star.userData.key = "proxima";
+    scene.add(star);
+    pickables.push(star);
+    makePlanet("exo1", 0.7, 7.2, 0.018);
+    makePlanet("mars", 0.5, 11.4, 0.01);
+    makePlanet("neptune", 0.85, 16.2, 0.006);
+  } else {
   const sun = new THREE.Mesh(
     new THREE.SphereGeometry(2.6, 48, 48),
     new THREE.MeshBasicMaterial({ map: TEX.soleil })
@@ -481,6 +595,7 @@ function startSolar3D() {
   });
   makePlanet("uranus", 0.95, 23.6, 0.0024);
   makePlanet("neptune", 0.92, 27.0, 0.0018);
+  }
 
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
@@ -511,7 +626,7 @@ function startSolar3D() {
   function tick() {
     if (!solar) return;
     movers.forEach(m => { m.pivot.rotation.y += m.speed; if (m.mesh) m.mesh.rotation.y += 0.01; });
-    sun.rotation.y += 0.003;
+    if (typeof sun !== "undefined" && sun) sun.rotation.y += 0.003;
     controls.update();
     renderer.render(scene, camera);
     solar.raf = requestAnimationFrame(tick);
